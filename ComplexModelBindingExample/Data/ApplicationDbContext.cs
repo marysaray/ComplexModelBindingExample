@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ComplexModelBindingExample.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComplexModelBindingExample.Data
@@ -9,5 +10,7 @@ namespace ComplexModelBindingExample.Data
             : base(options)
         {
         }
+
+        public DbSet<EventType> Categories { get; set; }
     }
 }
