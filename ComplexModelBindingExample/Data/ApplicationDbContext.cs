@@ -12,5 +12,7 @@ namespace ComplexModelBindingExample.Data
         }
 
         public DbSet<EventType> Categories { get; set; }
+
+        public DbSet<Event> Events { get; set; }
     }
 }
