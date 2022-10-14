@@ -1,7 +1,23 @@
-﻿@model ComplexModelBindingExample.Models.Event
+﻿@model EventTypeViewModel
 
 @{
     ViewData["Title"] = "Create";
+
+    List<SelectListItem> categorySelectList = new(); 
+    // Go through a loop to get list item
+    foreach (EventType category in Model.AllCategories)
+    {
+        // Make a list of select items
+        categorySelectList.Add
+        (
+            new SelectListItem()
+                    {
+                        Value = category.Id.ToString(),
+                        Text = category.Category
+                    }
+        );
+
+    }
 }
 
 <h1>Create</h1>
@@ -21,6 +37,10 @@
                 <label asp-for="EventBy" class="control-label"></label>
                 <input asp-for="EventBy" class="form-control" />
                 <span asp-validation-for="EventBy" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="ChosenEvent"asp-items="categorySelectList">
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

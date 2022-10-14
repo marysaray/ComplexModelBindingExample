@@ -46,7 +46,15 @@ namespace ComplexModelBindingExample.Controllers
         // GET: Events/Create
         public IActionResult Create()
         {
-            return View();
+            // Pass in a list of Event Types to get right away.
+            // Create Event Type view model object
+            EventTypeViewModel viewModel = new EventTypeViewModel();
+
+            // Get all category from the database and sort by category for a list
+            viewModel.AllCategories = _context.Categories.OrderBy(c => c.Id).ToList();
+
+            // pass in the view model into the view
+            return View(viewModel);
         }
 
         // POST: Events/Create
@@ -54,15 +62,31 @@ namespace ComplexModelBindingExample.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,EventTitle,EventBy")] Event @event)
+        public async Task<IActionResult> Create(EventTypeViewModel category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                // event mapping manually
+                Event newEvent = new()
+                {
+                    EventTitle = category.EventTitle,
+                    EventBy = category.EventBy,
+                    Category = new EventType()
+                    { 
+                        Id = category.ChosenEvent
+                    }
+                };
+
+                // Mark category unmodified for EF functionality
+                _context.Entry(newEvent.Category).State = EntityState.Unchanged;
+
+                _context.Add(newEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            // Add categories back into the view model
+            category.AllCategories = _context.Categories.OrderBy(c => c.Id).ToList();
+            return View(category);
         }
 
         // GET: Events/Edit/5
