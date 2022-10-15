@@ -48,7 +48,7 @@ namespace ComplexModelBindingExample.Controllers
         {
             // Pass in a list of Event Types to get right away.
             // Create Event Type view model object
-            EventTypeViewModel viewModel = new EventTypeViewModel();
+            EventCreateViewModel viewModel = new EventCreateViewModel();
 
             // Get all category from the database and sort by category for a list
             viewModel.AllCategories = _context.Categories.OrderBy(c => c.Id).ToList();
@@ -62,7 +62,7 @@ namespace ComplexModelBindingExample.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EventTypeViewModel category)
+        public async Task<IActionResult> Create(EventCreateViewModel category)
         {
             if (ModelState.IsValid)
             {

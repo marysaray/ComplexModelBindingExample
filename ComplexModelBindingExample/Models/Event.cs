@@ -15,7 +15,7 @@ namespace ComplexModelBindingExample.Models
 
     }
 
-    public class EventTypeViewModel
+    public class EventCreateViewModel
     { 
         public string EventTitle { get; set; }
 
