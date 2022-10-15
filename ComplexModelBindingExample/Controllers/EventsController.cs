@@ -22,7 +22,7 @@ namespace ComplexModelBindingExample.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Events.ToListAsync());
+            // Getting some event object data from the database
         }
 
         // GET: Events/Details/5
