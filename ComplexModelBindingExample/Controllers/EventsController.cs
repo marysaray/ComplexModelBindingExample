@@ -23,6 +23,22 @@ namespace ComplexModelBindingExample.Controllers
         public async Task<IActionResult> Index()
         {
             // Getting some event object data from the database
+            // table join for the desired data for the view.
+            List<EventIndexViewModel> eventData = 
+                    await (from e in _context.Events
+                            join category in _context.Categories
+                                on e.Category.Id equals category.Id
+                            orderby e.EventBy
+                            select new EventIndexViewModel // map the associated data in this view model.
+                            {
+                                EventId = category.Id,
+                                EventType = category.Category,
+                                EventTitle = e.EventTitle,
+                                EventBy = e.EventBy
+                            }).ToListAsync();
+            
+            // pass in query into the view page.
+              return View(eventData);
         }
 
         // GET: Events/Details/5
