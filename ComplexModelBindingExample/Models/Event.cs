@@ -29,4 +29,18 @@ namespace ComplexModelBindingExample.Models
         public int ChosenEvent { get; set; }
     
     }
+
+    public class EventIndexViewModel
+    { 
+        public int EventId { get; set; }
+
+        [Display(Name = "Category")]
+        public string EventType { get; set; }
+
+        [Display(Name = "Event Title")]
+        public string EventTitle { get; set; }
+
+        [Display(Name = "Host(s)")]
+        public string EventBy { get; set; }
+    }
 }
